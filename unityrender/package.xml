@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package>
+  <name>unityrender</name>
+  <description>The unityrender package</description>
+  <maintainer email="matthew.woo@u.nus.edu">Matthew</maintainer>
+  <license>TODO</license>
+  <version>0.0.0</version>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+</package>

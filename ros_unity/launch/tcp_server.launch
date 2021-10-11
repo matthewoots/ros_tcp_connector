@@ -1,5 +1,5 @@
 <launch>
     <rosparam file="$(find ros_unity)/config/params.yaml" command="load"/>
     <node name="server_endpoint" pkg="ros_unity" type="tcp_server_endpoint.py" args="--wait" output="screen" respawn="true" />
-    <node pkg="unityrender" type="CFS.x86_64" name="unityrender" />
+    <!-- <node pkg="unityrender" type="CFS.x86_64" name="unityrender" /> -->
 </launch>

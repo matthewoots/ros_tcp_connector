@@ -19,6 +19,8 @@ from std_msgs.msg import Byte
 from mavros_msgs.msg import State
 from mavros_msgs.msg import ActuatorControl
 
+from sensor_msgs.msg import PointCloud
+from sensor_msgs.msg import PointCloud2
 
 def main():
     ros_node_name = rospy.get_param("/TCP_NODE_NAME", "TCPServer")
@@ -27,13 +29,13 @@ def main():
     # Create ROS communication objects dictionary for routing messages
     tcp_server.source_destination_dict = {
 
-        #'Image_Left': RosPublisher('tiscamera_ros/fisheye_left/image_rect_raw', Image, tcp_server),	
-        #'Image_Right': RosPublisher('tiscamera_ros/fisheye_right/image_rect_raw', Image, tcp_server),
-        #'CameraInfo_Left': RosPublisher('tiscamera_ros/fisheye_left/camera_info', CameraInfo, tcp_server),
-        #'CameraInfo_Right': RosPublisher('tiscamera_ros/fisheye_right/camera_info', CameraInfo, tcp_server),
-        #'Mapping': RosPublisher('engage_cmd', Bool, tcp_server),
-	#'command': RosPublisher('user', Byte, tcp_server)
+        #'img0': RosPublisher('right/image_rect_raw', Image, tcp_server),	
+        #'img1': RosPublisher('left/image_rect_raw', Image, tcp_server),
+        #'cam0_left': RosPublisher('right/camera_info', CameraInfo, tcp_server),
+        #'cam1_right': RosPublisher('left/camera_info', CameraInfo, tcp_server),
 
+	'pcl': RosPublisher('pcl', PointCloud, tcp_server),
+	
         'local_pos': RosSubscriber('mavros/local_position/pose', PoseStamped, tcp_server),
         'local_vel': RosSubscriber('mavros/local_position/velocity_local', TwistStamped, tcp_server),
 	'mavros_state': RosSubscriber('mavros/state', State, tcp_server),

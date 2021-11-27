@@ -77,9 +77,9 @@ Visualization Manager:
       Queue Size: 1
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.05000000074505806
+      Size (m): 0.019999999552965164
       Style: Flat Squares
-      Topic: /pcl
+      Topic: /map/pcl
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -112,25 +112,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 25.745851516723633
+      Distance: 4.215146541595459
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -2.252065896987915
-        Y: -6.193078994750977
-        Z: 2.450301508361008e-6
+        X: 1.0322520732879639
+        Y: -1.4279457330703735
+        Z: 1.7350457710563205e-6
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -0.009797502309083939
+      Pitch: 0.5252021551132202
       Target Frame: <Fixed Frame>
       Value: ThirdPersonFollower (rviz)
-      Yaw: 5.2386088371276855
+      Yaw: 5.438632011413574
     Saved: ~
 Window Geometry:
   Displays:

@@ -50,7 +50,7 @@ class TcpServer:
         if tcp_port != -1:
             self.tcp_port = tcp_port
         else:
-            self.tcp_port = rospy.get_param("/ROS_TCP_PORT", 10000)
+            self.tcp_port = rospy.get_param("ROS_TCP_PORT", 10000)
 
         self.unity_tcp_sender = UnityTcpSender()
 

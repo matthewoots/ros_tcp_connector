@@ -36,6 +36,7 @@ def create_dict(id):
             #'cam0_left': RosPublisher('right/camera_info', CameraInfo, tcp_server),
             #'cam1_right': RosPublisher('left/camera_info', CameraInfo, tcp_server),
 
+	    ## Subscribing via Unity Ros Package
             # 'local_pos': RosSubscriber('S'+ str(id-1) + '/mavros/local_position/pose', PoseStamped, tcp_server),
             # 'local_vel': RosSubscriber('S'+ str(id-1) + '/mavros/local_position/velocity_local', TwistStamped, tcp_server),
             # 'mavros_state': RosSubscriber('S'+ str(id-1) + '/mavros/state', State, tcp_server),
@@ -48,7 +49,9 @@ def create_dict(id):
         # Create ROS communication objects dictionary for routing messages
         my_dict = {
             'pcl': RosPublisher('pcl', PointCloud, tcp_server),
-            'cmd': RosPublisher('cmd', Byte, tcp_server)
+            'lidar_scan': RosPublisher('lidar/scan', PointCloud, tcp_server),
+            'cmd': RosPublisher('cmd', Byte, tcp_server),
+	    'lidar_pose': RosPublisher('lidar/pose', PoseStamped, tcp_server)
         }
     
     return my_dict

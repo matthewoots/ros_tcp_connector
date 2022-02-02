@@ -52,14 +52,40 @@ class TcpServer:
         else:
             name = rospy.get_name()  
             prefix = rospy.get_param("PREFIX", "/server_endpoint")
-            base = rospy.get_param("ROS_TCP_PORT_BASE", "10000")
-            self.tcp_port = base
-            for i in range(10):
-                queryname = prefix + str(i)
+            base = rospy.get_param("ROS_TCP_PORT", "10000")
+
+            agent_base = 0
+            global_pcl_base = 1000
+            lidar_base = 1001
+	    
+            #Range 1-100 will be reserved for agents
+            for i in range(100):
+                queryname = prefix + "agent" + str(i)
                 if queryname == name:
-                    print('# [Server name]:' + str(name))
-                    self.tcp_port = base + i
+                    # print('# Found name! agent' + str(i))
+                    base = int(base) + agent_base + i
                     break
+
+            #Range 1000-1100 will be reserved for sensors
+            #Range 1000 will be reserved for global point cloud
+            for i in range(1):
+                queryname = prefix + "global_pcl" + str(i)
+                if queryname == name:
+                    # print('# Found name! global_pcl' + str(i))
+                    base = int(base) + global_pcl_base + i
+                    break
+
+            #Range 1001-1002 will be reserved for lidar
+            for i in range(2):
+                queryname = prefix + "lidar" + str(i)
+                if queryname == name:
+                    # print('# Found name! lidar' + str(i))
+                    base = int(base) + lidar_base + i
+                    break
+
+            print('ROS_TCP_PORT ' + str(base))
+            print('PREFIX ' + str(prefix))
+            self.tcp_port = base
             
 
         self.unity_tcp_sender = UnityTcpSender()

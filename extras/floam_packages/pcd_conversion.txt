@@ -1,5 +1,0 @@
-# When floam is running
-rosrun pcl_ros pointcloud_to_pcd input:=/map
-
-# To publish pcd at a certain rate
-rosrun pcl_ros pcd_to_pointcloud <pcd path>/0.pcd 0.1 _frame_id:=/map

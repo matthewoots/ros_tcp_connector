@@ -1,2 +1,3 @@
 .vscode
-ros_tcp_connector/src/ros_tcp_endpoint/*.pyc
+*.cpython-38.pyc
+ros_tcp_connector/src/ros_tcp_endpoint/__pycache__/

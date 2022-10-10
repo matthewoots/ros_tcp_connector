@@ -1,4 +1,7 @@
+#!/usr/bin/env python3
+
 #  Copyright 2020 Unity Technologies
+#  Edited by Matthew Woo 2022
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -52,41 +55,37 @@ class TcpServer:
         else:
             name = rospy.get_name()  
             prefix = rospy.get_param("PREFIX", "/server_endpoint")
-            base = rospy.get_param("ROS_TCP_PORT", "10000")
+            base = int(rospy.get_param("ROS_TCP_PORT", "10000"))
 
-            agent_base = 0
+            # Since the prefix is "/server_endpoint_xxx"
+            # /server_endpoint_ = 0 to 16
+            # agent = 17 to 21
+            # global = 17 to 22
+            query = name[17:len(name)]
+            id = 0
             global_pcl_base = 1000
-            lidar_base = 1001
-	    
-            #Range 1-100 will be reserved for agents
-            for i in range(100):
-                queryname = prefix + "agent" + str(i)
-                if queryname == name:
-                    # print('# Found name! agent' + str(i))
-                    base = int(base) + agent_base + i
-                    break
 
-            #Range 1000-1100 will be reserved for sensors
-            #Range 1000 will be reserved for global point cloud
-            for i in range(1):
-                queryname = prefix + "global_pcl" + str(i)
-                if queryname == name:
-                    # print('# Found name! global_pcl' + str(i))
-                    base = int(base) + global_pcl_base + i
-                    break
-
-            #Range 1001-1002 will be reserved for lidar
-            for i in range(2):
-                queryname = prefix + "lidar" + str(i)
-                if queryname == name:
-                    # print('# Found name! lidar' + str(i))
-                    base = int(base) + lidar_base + i
-                    break
-
-            print('ROS_TCP_PORT ' + str(base))
-            print('PREFIX ' + str(prefix))
-            self.tcp_port = base
+            # Range 000-999 will be reserved for agents each agents can take 1 port
+            if query[0:5] == "agent":
+                if query[6:8] == "00":
+                    id = int(query[8])
+                elif query[6] == "0":
+                    id = int(query[7:9])
+                else:
+                    id = int(query[6:9])   
+                base += id
             
+            # Range 1000-1100 will be reserved for sensors
+            # Range 1000-1004 will be reserved for global point cloud
+            if query[0:6] == "global":
+                if query[7:10] == "pcl":
+                    id = int(query[11])
+                    base += global_pcl_base + id
+
+            #Range 1005-1024 will be reserved for external cameras
+            
+            print('node ['+ name + '] on port ' + str(base))
+            self.tcp_port = base
 
         self.unity_tcp_sender = UnityTcpSender()
 
